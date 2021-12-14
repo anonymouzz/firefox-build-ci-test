@@ -1,5 +1,5 @@
 SRC := firefox/mozilla-unified
-DST := ${{HOME}/src/obj-x86_64-pc-linux-gnu/dist/
+DST := $${HOME}/src/obj-x86_64-pc-linux-gnu/dist/
 
 RED := '\033[0;31m'
 NC := '\033[0m'
