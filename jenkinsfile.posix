@@ -11,12 +11,6 @@ pipeline {
         }
     }
 
-    environment {
-    }
-
-    parameters {
-    }
-
     stages {
 
         stage('clean') {
@@ -36,8 +30,5 @@ pipeline {
                 sh "make package"
             }
         }
-    }
-
-    post {
     }
 }
