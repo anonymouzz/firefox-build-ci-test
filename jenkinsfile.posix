@@ -11,6 +11,10 @@ pipeline {
         }
     }
 
+    environment {
+        MOZBUILD_STATE_PATH = "${env.HOME}" + "/" + ".mozbuild"
+    }
+
     stages {
 
         stage('clean') {

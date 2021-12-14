@@ -20,8 +20,9 @@ check:
 
 bootstrap-linux:
 	@echo "== Install build dependecies"
-	@sudo apt install -y git tmux python3 python3-dev python3-pip mercurial default-jre-headless
+	@sudo apt install -y git tmux python3 python3-dev python3-pip mercurial default-jre-headless build-essential libpython3-dev m4 nodejs unzip uuid zip
 	@mkdir -p $${HOME}/firefox
+	@mkdir -p $${HOME}/.mozbuild
 	@cd $${HOME}/firefox && curl https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py -O
 	@cd $${HOME}/firefox/ && python3 bootstrap.py --no-interactive
 	@cd ${{HOME}/${SRC} && bash mach bootstrap
