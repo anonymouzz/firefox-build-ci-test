@@ -25,7 +25,7 @@ bootstrap-linux:
 	@mkdir -p $${HOME}/.mozbuild
 	@cd $${HOME}/firefox && curl https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py -O
 	@cd $${HOME}/firefox/ && python3 bootstrap.py --no-interactive
-	@cd ${{HOME}/${SRC} && bash mach bootstrap
+	@cd $${HOME}/${SRC} && bash mach bootstrap
 
 bootstrap-macos:
 	@echo "== Install build dependecies"
