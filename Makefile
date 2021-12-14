@@ -16,11 +16,11 @@ clean: check
 	@cd $${HOME}/firefox/mozilla-unified && bash mach clobber
 
 check:
-	@test -d $${HOME}/${SRC} || echo "${RED}-----> please ssh to build node and run: make bootstrap-linux or make bootstrap-macos${NC}"; exit -1
+	@test -d $${HOME}/${SRC} || (echo "${RED}-----> please ssh to build node and run: make bootstrap-linux or make bootstrap-macos${NC}" && exit -1)
 
 bootstrap-linux:
 	@echo "== Install build dependecies"
-	@sudo apt install -y git tmux python3 python3-dev python3-pip mercurial default-jre-headless build-essential libpython3-dev m4 nodejs unzip uuid zip
+	@sudo apt install -y git tmux python3 python3-dev python3-pip mercurial default-jre-headless build-essential libpython3-dev m4 nodejs unzip uuid zip watchman
 	@mkdir -p $${HOME}/firefox
 	@mkdir -p $${HOME}/.mozbuild
 	@cd $${HOME}/firefox && curl https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py -O
