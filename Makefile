@@ -1,20 +1,25 @@
 SRC := firefox/mozilla-unified
 DST := ${{HOME}/src/obj-x86_64-pc-linux-gnu/dist/
 
-package:
-	@test -d $${HOME}/${SRC} || echo "ssh to build node and run make bootstrap-linux/bootstrap-macos"
+RED := '\033[0;31m'
+NC := '\033[0m'
+
+package: check
 	@cd $${HOME}/${SRC}
 	@bash mach package
 
-build:
-	@test -d $${HOME}/${SRC} || echo "ssh to build node and run make bootstrap-linux/bootstrap-macos"
+build: check
+	@test -d $${HOME}/${SRC} || echo "${SRC_NOT_EXIST_MESSAGE}"
 	@cd $${HOME}/${SRC}
 	@bash mach build
 
-clean:
-	@test -d $${HOME}/${SRC} || echo "ssh to build node and run make bootstrap-linux/bootstrap-macos"
+clean: check
+	@test -d $${HOME}/${SRC} || echo "${SRC_NOT_EXIST_MESSAGE}"
 	@cd $${HOME}/firefox/mozilla-unified
 	@bash mach clobber
+
+check:
+	@test -d $${HOME}/${SRC} || echo "${RED}-----> ssh to build node and run make bootstrap-linux/bootstrap-macos${NC}"; exit -1
 
 bootstrap-linux:
 	@echo "== Install build dependecies"
