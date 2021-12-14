@@ -19,7 +19,7 @@ clean: check
 	@bash mach clobber
 
 check:
-	@test -d $${HOME}/${SRC} || echo "${RED}-----> ssh to build node and run make bootstrap-linux/bootstrap-macos${NC}"; exit -1
+	@test -d $${HOME}/${SRC} || echo "${RED}-----> please ssh to build node and run: make bootstrap-linux or make bootstrap-macos${NC}"; exit -1
 
 bootstrap-linux:
 	@echo "== Install build dependecies"
