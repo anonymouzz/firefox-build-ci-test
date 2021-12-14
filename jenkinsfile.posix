@@ -1,0 +1,42 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    options {
+        ansiColor('xterm')
+    }
+
+    agent {
+        node {
+            label 'posix'
+        }
+    }
+
+    environment {
+    }
+
+    parameters {
+    }
+
+    stages {
+
+        stage('clean') {
+            steps {
+                sh '''make clean'''
+            }
+        }
+
+        stage('build') {
+            steps {
+                sh "make build"
+            }
+        }
+
+        stage('package') {
+            steps {
+                sh "make package"
+            }
+        }
+
+    post {
+    }
+}
