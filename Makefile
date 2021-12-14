@@ -6,7 +6,7 @@ NC := '\033[0m'
 
 package: check
 	@cd $${HOME}/${SRC} && bash mach package
-	@cp $${DST}/*.bz2 .
+	@cp ${DST}/*.bz2 .
 
 build: check
 	@test -d $${HOME}/${SRC} || echo "${SRC_NOT_EXIST_MESSAGE}"
