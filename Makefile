@@ -2,14 +2,17 @@ SRC := firefox/mozilla-unified
 DST := ${{HOME}/src/obj-x86_64-pc-linux-gnu/dist/
 
 package:
+	@test -d $${HOME}/${SRC} || echo "ssh to build node and run make bootstrap-linux/bootstrap-macos"
 	@cd $${HOME}/${SRC}
 	@bash mach package
 
 build:
+	@test -d $${HOME}/${SRC} || echo "ssh to build node and run make bootstrap-linux/bootstrap-macos"
 	@cd $${HOME}/${SRC}
 	@bash mach build
 
 clean:
+	@test -d $${HOME}/${SRC} || echo "ssh to build node and run make bootstrap-linux/bootstrap-macos"
 	@cd $${HOME}/firefox/mozilla-unified
 	@bash mach clobber
 
