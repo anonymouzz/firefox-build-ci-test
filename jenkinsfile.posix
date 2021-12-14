@@ -31,4 +31,10 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'obj-x86_64-pc-linux-gnu/dist/firefox-*.tar.bz2', fingerprint: true
+        }
+    }
 }
