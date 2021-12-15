@@ -9,11 +9,9 @@ package: check
 	@cp ${DST}/*.bz2 .
 
 build: check
-	@test -d $${HOME}/${SRC} || echo "${SRC_NOT_EXIST_MESSAGE}"
 	@cd $${HOME}/${SRC} && bash mach build
 
 clean: check
-	@test -d $${HOME}/${SRC} || echo "${SRC_NOT_EXIST_MESSAGE}"
 	@cd $${HOME}/firefox/mozilla-unified && bash mach clobber
 
 check:
