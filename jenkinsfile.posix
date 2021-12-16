@@ -7,12 +7,6 @@ pipeline {
         ansiColor('xterm')
     }
 
-    agent {
-        node {
-            label 'posix'
-        }
-    }
-
     environment {
         MOZBUILD_STATE_PATH = "${env.HOME}" + "/" + ".mozbuild"
     }
