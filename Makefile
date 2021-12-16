@@ -1,30 +1,44 @@
-SRC := firefox/mozilla-unified
-DST := $${HOME}/${SRC}/obj-x86_64-pc-linux-gnu/dist/
+SRC := $${HOME}/projects/firefox/mozilla-unified
+UNAME := $(shell uname)
 
 RED := '\033[0;31m'
 NC := '\033[0m'
 
+ifeq ($(UNAME), Darwin)
+  DIST := $(SRC)/obj-x86_64-apple-darwin21.1.0/dist/firefox*.dmg
+else ifeq ($(UNAME), Linux)
+  DIST := ${SRC}/obj-x86_64-pc-linux-gnu/dist/firefox*.bz2
+else
+  DIST := "Windows"
+endif
+
 package: check
-	@cd $${HOME}/${SRC} && bash mach package
-	@cp ${DST}/*.bz2 .
+	@cd ${SRC} && bash mach package
+	@mkdir -p dist/
+	@cp $(DIST) dist/
 
 build: check
-	@cd $${HOME}/${SRC} && bash mach build
+	@cd ${SRC} && bash mach build
 
 clean: check
-	@cd $${HOME}/firefox/mozilla-unified && bash mach clobber
+	@cd $(SRC) && bash mach clobber
 
 check:
-	@test -d $${HOME}/${SRC} || (echo "${RED}-----> please ssh to build node and run: make bootstrap-linux or make bootstrap-macos${NC}" && exit -1)
+	@test -d ${SRC} || (echo "${RED}-----> please ssh to build node and run: make bootstrap-linux or make bootstrap-macos${NC}" && exit -1)
 
-bootstrap-linux:
+boostrap:
+	@mkdir -p $${HOME}/projects/firefox
+	@mkdir -p $${HOME}/.mozbuild
+	@cd $${HOME}/projects/firefox && curl https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py -O
+	@cd $${HOME}/projects/firefox/ && python3 bootstrap.py --no-interactive
+	@cd ${SRC} && bash mach bootstrap
+
+prepare-linux:
 	@echo "== Install build dependecies"
 	@sudo apt install -y git tmux python3 python3-dev python3-pip mercurial default-jre-headless build-essential libpython3-dev m4 nodejs unzip uuid zip watchman
-	@mkdir -p $${HOME}/firefox
-	@mkdir -p $${HOME}/.mozbuild
-	@cd $${HOME}/firefox && curl https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py -O
-	@cd $${HOME}/firefox/ && python3 bootstrap.py --no-interactive
-	@cd $${HOME}/${SRC} && bash mach bootstrap
 
-bootstrap-macos:
+prepare-macos:
 	@echo "== Install build dependecies"
+	@brew install zsh tmux htop java mercurial
+	@sudo xcode-select --switch /Applications/Xcode.app
+	@sudo xcodebuild -license

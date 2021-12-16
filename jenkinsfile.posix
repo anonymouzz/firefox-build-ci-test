@@ -1,6 +1,8 @@
 #!/usr/bin/env groovy
 
 pipeline {
+    agent none
+
     options {
         ansiColor('xterm')
     }
@@ -16,29 +18,71 @@ pipeline {
     }
 
     stages {
-
         stage('clean') {
-            steps {
-                sh '''make clean'''
+            parallel {
+                stage('clean @ Linux') {
+                    agent {
+                        label 'linux'
+                    }
+                    steps {
+                        sh '''make clean'''
+                    }
+                }
+                stage('clean @ macOS') {
+                    agent {
+                        label 'macOS'
+                    }
+                    steps {
+                        sh '''make clean'''
+                    }
+                }
             }
         }
-
         stage('build') {
-            steps {
-                sh "make build"
+            parallel {
+                stage('build @ Linux') {
+                    agent {
+                        label 'linux'
+                    }
+                    steps {
+                        sh '''make build'''
+                    }
+                }
+                stage('build @ macOS') {
+                    agent {
+                        label 'macOS'
+                    }
+                    steps {
+                        sh '''make build'''
+                    }
+                }
             }
         }
-
         stage('package') {
-            steps {
-                sh "make package"
+            parallel {
+                stage('package @ Linux') {
+                    agent {
+                        label 'linux'
+                    }
+                    steps {
+                        sh '''make package'''
+                    }
+                }
+                stage('package @ macOS') {
+                    agent {
+                        label 'macOS'
+                    }
+                    steps {
+                        sh '''make package'''
+                    }
+                }
             }
         }
     }
 
     post {
         always {
-            archiveArtifacts artifacts: 'firefox-*.tar.bz2', fingerprint: true
+            archiveArtifacts artifacts: 'dist/*', fingerprint: true
         }
     }
 }
