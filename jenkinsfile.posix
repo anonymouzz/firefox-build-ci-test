@@ -61,6 +61,11 @@ pipeline {
                     steps {
                         sh '''make package'''
                     }
+                    post {
+                        always {
+                            archiveArtifacts artifacts: 'dist/*.bz2', fingerprint: true
+                        }
+                    }
                 }
                 stage('package @ macOS') {
                     agent {
@@ -69,17 +74,14 @@ pipeline {
                     steps {
                         sh '''make package'''
                     }
+                    post {
+                        always {
+                            archiveArtifacts artifacts: 'dist/*.dmg', fingerprint: true
+                        }
+                    }
                 }
             }
         }
     }
 
-    post {
-        agent {
-            label 'posix'
-        }
-        always {
-            archiveArtifacts artifacts: 'dist/*', fingerprint: true
-        }
-    }
 }
