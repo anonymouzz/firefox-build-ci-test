@@ -5,10 +5,13 @@ RED := '\033[0;31m'
 NC := '\033[0m'
 
 ifeq ($(UNAME), Darwin)
+  DIST_ROOT := $(SRC)/obj-x86_64-apple-darwin21.1.0
   DIST := $(SRC)/obj-x86_64-apple-darwin21.1.0/dist/firefox*.dmg
 else ifeq ($(UNAME), Linux)
+  DIST_ROOT := $(SRC)/obj-x86_64-apple-darwin21.1.0
   DIST := ${SRC}/obj-x86_64-pc-linux-gnu/dist/firefox*.bz2
 else
+  DIST_ROOT := $(SRC)/obj-x86_64-windows
   DIST := "Windows"
 endif
 
@@ -22,6 +25,7 @@ build: check
 
 clean: check
 	@cd $(SRC) && bash mach clobber
+	@cd $(SRC) && rm -fR $(DIST)
 
 check:
 	@test -d ${SRC} || (echo "${RED}-----> please ssh to build node and run: make bootstrap-linux or make bootstrap-macos${NC}" && exit -1)
