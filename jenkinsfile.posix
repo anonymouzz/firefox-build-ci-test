@@ -11,17 +11,13 @@ pipeline {
         stage('clean') {
             parallel {
                 stage('clean @ Linux') {
-                    agent {
-                        label 'linux'
-                    }
+                    agent { label 'linux' }
                     steps {
                         sh '''make clean'''
                     }
                 }
                 stage('clean @ macOS') {
-                    agent {
-                        label 'macOS'
-                    }
+                    agent { label 'macOS' }
                     steps {
                         sh '''make clean'''
                     }
@@ -31,17 +27,13 @@ pipeline {
         stage('build') {
             parallel {
                 stage('build @ Linux') {
-                    agent {
-                        label 'linux'
-                    }
+                    agent { label 'linux' }
                     steps {
                         sh '''make build'''
                     }
                 }
                 stage('build @ macOS') {
-                    agent {
-                        label 'macOS'
-                    }
+                    agent { label 'macOS' }
                     steps {
                         sh '''make build'''
                     }
@@ -51,9 +43,7 @@ pipeline {
         stage('package') {
             parallel {
                 stage('package @ Linux') {
-                    agent {
-                        label 'linux'
-                    }
+                    agent { label 'linux' }
                     steps {
                         sh '''make package'''
                     }
@@ -64,9 +54,7 @@ pipeline {
                     }
                 }
                 stage('package @ macOS') {
-                    agent {
-                        label 'macOS'
-                    }
+                    agent { label 'macOS' }
                     steps {
                         sh '''make package'''
                     }
