@@ -75,6 +75,9 @@ pipeline {
     }
 
     post {
+        agent {
+            label 'posix'
+        }
         always {
             archiveArtifacts artifacts: 'dist/*', fingerprint: true
         }
