@@ -14,7 +14,7 @@ pipeline {
                     agent { label 'windows' }
                     steps {
                         bat """
-                        c:\\mozilla-build\\start-shell.bat "win/clean.sh"
+                        c:\\mozilla-build\\start-shell.bat "${WORKSPACE}/win/clean.sh"
                         """
                     }
                 }
@@ -26,7 +26,7 @@ pipeline {
                     agent { label 'windows' }
                     steps {
                         bat """
-                        c:\\mozilla-build\\start-shell.bat "win/build.sh"
+                        c:\\mozilla-build\\start-shell.bat "${WORKSPACE}/win/build.sh"
                         """
                     }
                 }
@@ -38,7 +38,7 @@ pipeline {
                     agent { label 'windows' }
                     steps {
                         bat """
-                        c:\\mozilla-build\\start-shell.bat "win/package.sh"
+                        c:\\mozilla-build\\start-shell.bat "${WORKSPACE}/win/package.sh"
                         """
                     }
 
