@@ -13,7 +13,8 @@ pipeline {
                 stage('clean @ windows') {
                     agent { label 'windows' }
                     steps {
-                        bat "win/clean.bat"
+                        bat """echo "cd /c/mozilla-source/mozilla-unified && ./mach clobber" | c:\\mozilla-build\\start-shell.bat"""
+"
                     }
                 }
             }
@@ -23,7 +24,7 @@ pipeline {
                 stage('build @ windows') {
                     agent { label 'windows' }
                     steps {
-                        bat "win/build.bat"
+                        bat """echo "cd /c/mozilla-source/mozilla-unified && ./mach build" | c:\\mozilla-build\\start-shell.bat"""
                     }
                 }
             }
@@ -33,8 +34,9 @@ pipeline {
                 stage('package @ windows') {
                     agent { label 'windows' }
                     steps {
-                        bat "package.bat"
+                        bat """echo "cd /c/mozilla-source/mozilla-unified && ./mach package" | c:\\mozilla-build\\start-shell.bat"""
                     }
+
                     post {
                         always {
                             archiveArtifacts artifacts: 'c:/mozilla-source/mozilla-unified/obj-x86_64-pc-mingw32/dist/firefox*.zip', fingerprint: true
