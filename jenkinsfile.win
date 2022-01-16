@@ -15,6 +15,7 @@ pipeline {
                     steps {
                         sh '''
                             C:/mozilla-build/start-shell.bat
+                            cd /c/mozilla-source/mozilla-unified
                             ./mach clobber
                         '''
                     }
@@ -28,6 +29,7 @@ pipeline {
                     steps {
                         sh '''
                             C:/mozilla-build/start-shell.bat
+                            cd /c/mozilla-source/mozilla-unified
                             ./mach build
                         '''
                     }
@@ -41,12 +43,18 @@ pipeline {
                     steps {
                         sh '''
                             C:/mozilla-build/start-shell.bat
+                            cd /c/mozilla-source/mozilla-unified
                             ./mach package
+                        '''
+                        sh '''
+                            C:/mozilla-build/start-shell.bat
+                            mkdir -p dist
+                            cp /c/mozilla-source/mozilla-unified/obj-x86_64-pc-mingw32/firefox*.zip dist/
                         '''
                     }
                     post {
                         always {
-                            archiveArtifacts artifacts: 'obj-x86_64-pc-mingw32/dist/firefox*.zip', fingerprint: true
+                            archiveArtifacts artifacts: 'dist/firefox*.zip', fingerprint: true
                         }
                     }
                 }
