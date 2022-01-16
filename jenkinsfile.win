@@ -46,15 +46,10 @@ pipeline {
                             cd /c/mozilla-source/mozilla-unified
                             ./mach package
                         '''
-                        bat '''
-                            C:/mozilla-build/start-shell.bat
-                            mkdir -p dist
-                            cp /c/mozilla-source/mozilla-unified/obj-x86_64-pc-mingw32/firefox*.zip dist/
-                        '''
                     }
                     post {
                         always {
-                            archiveArtifacts artifacts: 'dist/firefox*.zip', fingerprint: true
+                            archiveArtifacts artifacts: 'c:/mozilla-source/mozilla-unified/obj-x86_64-pc-mingw32/dist/firefox*.zip', fingerprint: true
                         }
                     }
                 }
