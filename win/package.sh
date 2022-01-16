@@ -1,1 +1,1 @@
-cd /c/mozilla-source/mozilla-unified && ./mach package
+cd /c/mozilla-source/mozilla-unified && ./mach --no-interactive package
