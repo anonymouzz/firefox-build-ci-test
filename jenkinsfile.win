@@ -14,7 +14,6 @@ pipeline {
                     agent { label 'windows' }
                     steps {
                         bat """echo "cd /c/mozilla-source/mozilla-unified && ./mach clobber" | c:\\mozilla-build\\start-shell.bat"""
-"
                     }
                 }
             }
