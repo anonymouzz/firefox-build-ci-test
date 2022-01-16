@@ -12,12 +12,12 @@ pipeline {
             parallel {
                 stage('clean @ windows') {
                     agent { label 'windows' }
+                    def bat_string =  '''
+                        C:/mozilla-build/start-shell.bat
+                        cd /c/mozilla-source/mozilla-unified
+                        ./mach clobber
+                    '''
                     steps {
-                        def bat_string =  '''
-                            C:/mozilla-build/start-shell.bat
-                            cd /c/mozilla-source/mozilla-unified
-                            ./mach clobber
-                        '''
                         bat bat_string
                     }
                 }
@@ -27,12 +27,12 @@ pipeline {
             parallel {
                 stage('build @ windows') {
                     agent { label 'windows' }
+                    def bat_string =  '''
+                        C:/mozilla-build/start-shell.bat
+                        cd /c/mozilla-source/mozilla-unified
+                        ./mach build
+                    '''
                     steps {
-                        def bat_string =  '''
-                            C:/mozilla-build/start-shell.bat
-                            cd /c/mozilla-source/mozilla-unified
-                            ./mach build
-                        '''
                         bat bat_string
                     }
                 }
@@ -42,12 +42,12 @@ pipeline {
             parallel {
                 stage('package @ windows') {
                     agent { label 'windows' }
+                    def bat_string = '''
+                        C:/mozilla-build/start-shell.bat
+                        cd /c/mozilla-source/mozilla-unified
+                        ./mach package
+                    '''
                     steps {
-                        def bat_string = '''
-                            C:/mozilla-build/start-shell.bat
-                            cd /c/mozilla-source/mozilla-unified
-                            ./mach package
-                        '''
                         bat bat_string
                     }
                     post {
