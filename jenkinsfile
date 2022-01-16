@@ -84,7 +84,7 @@ pipeline {
                     agent { label 'windows' }
                     steps {
                         bat """
-                        c:\\mozilla-build\\start-shell.bat /c/jenkins/workspace/firefox-win/win/package.sh
+                        c:\\mozilla-build\\start-shell.bat /c/jenkins/workspace/firefox/win/package.sh
                         """
                     }
 
