@@ -13,11 +13,12 @@ pipeline {
                 stage('clean @ windows') {
                     agent { label 'windows' }
                     steps {
-                        bat '''
+                        bat_string =  '''
                             C:/mozilla-build/start-shell.bat
                             cd /c/mozilla-source/mozilla-unified
                             ./mach clobber
                         '''
+                        bat bat_string
                     }
                 }
             }
@@ -27,11 +28,12 @@ pipeline {
                 stage('build @ windows') {
                     agent { label 'windows' }
                     steps {
-                        bat '''
+                        bat_string =  '''
                             C:/mozilla-build/start-shell.bat
                             cd /c/mozilla-source/mozilla-unified
                             ./mach build
                         '''
+                        bat bat_string
                     }
                 }
             }
@@ -41,11 +43,12 @@ pipeline {
                 stage('package @ windows') {
                     agent { label 'windows' }
                     steps {
-                        bat '''
+                        bat_string = '''
                             C:/mozilla-build/start-shell.bat
                             cd /c/mozilla-source/mozilla-unified
                             ./mach package
                         '''
+                        bat bat_string
                     }
                     post {
                         always {
