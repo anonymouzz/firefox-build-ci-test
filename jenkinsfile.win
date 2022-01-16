@@ -12,13 +12,8 @@ pipeline {
             parallel {
                 stage('clean @ windows') {
                     agent { label 'windows' }
-                    def bat_string =  '''
-                        C:/mozilla-build/start-shell.bat
-                        cd /c/mozilla-source/mozilla-unified
-                        ./mach clobber
-                    '''
                     steps {
-                        bat bat_string
+                        bat "win/clean.bat"
                     }
                 }
             }
@@ -27,13 +22,8 @@ pipeline {
             parallel {
                 stage('build @ windows') {
                     agent { label 'windows' }
-                    def bat_string =  '''
-                        C:/mozilla-build/start-shell.bat
-                        cd /c/mozilla-source/mozilla-unified
-                        ./mach build
-                    '''
                     steps {
-                        bat bat_string
+                        bat "win/build.bat"
                     }
                 }
             }
@@ -42,13 +32,8 @@ pipeline {
             parallel {
                 stage('package @ windows') {
                     agent { label 'windows' }
-                    def bat_string = '''
-                        C:/mozilla-build/start-shell.bat
-                        cd /c/mozilla-source/mozilla-unified
-                        ./mach package
-                    '''
                     steps {
-                        bat bat_string
+                        bat "package.bat"
                     }
                     post {
                         always {
