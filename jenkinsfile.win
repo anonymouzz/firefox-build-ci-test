@@ -13,7 +13,7 @@ pipeline {
                 stage('clean @ windows') {
                     agent { label 'windows' }
                     steps {
-                        powershell '''"cd /c/mozilla-source/mozilla-unified `&`& ./mach clobber" | c:\\mozilla-build\\start-shell.bat'''
+                        cmd """c:\\mozilla-build\\start-shell.bat "win/clean.sh""""
                     }
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
                 stage('build @ windows') {
                     agent { label 'windows' }
                     steps {
-                        powershell '''"cd /c/mozilla-source/mozilla-unified `&`& ./mach build" | c:\\mozilla-build\\start-shell.bat'''
+                        cmd """c:\\mozilla-build\\start-shell.bat "win/build.sh""""
                     }
                 }
             }
@@ -33,7 +33,7 @@ pipeline {
                 stage('package @ windows') {
                     agent { label 'windows' }
                     steps {
-                        powershell '''"cd /c/mozilla-source/mozilla-unified `&`& ./mach package" | c:\\mozilla-build\\start-shell.bat'''
+                        cmd """c:\\mozilla-build\\start-shell.bat "win/package.sh""""
                     }
 
                     post {
