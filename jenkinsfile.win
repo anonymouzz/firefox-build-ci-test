@@ -13,7 +13,7 @@ pipeline {
                 stage('clean @ windows') {
                     agent { label 'windows' }
                     steps {
-                        cmd """
+                        bat """
                         c:\\mozilla-build\\start-shell.bat "win/clean.sh"
                         """
                     }
@@ -25,7 +25,7 @@ pipeline {
                 stage('build @ windows') {
                     agent { label 'windows' }
                     steps {
-                        cmd """
+                        bat """
                         c:\\mozilla-build\\start-shell.bat "win/build.sh"
                         """
                     }
@@ -37,7 +37,7 @@ pipeline {
                 stage('package @ windows') {
                     agent { label 'windows' }
                     steps {
-                        cmd """
+                        bat """
                         c:\\mozilla-build\\start-shell.bat "win/package.sh"
                         """
                     }
