@@ -1,5 +1,5 @@
 ROOT="/c/mozilla-source/mozilla-unified"
-DIST="/c/jenkins/workspace/firefox-win/dist"
+DIST="/c/jenkins/workspace/firefox/dist"
 
 mkdir -p ${DIST}
 
