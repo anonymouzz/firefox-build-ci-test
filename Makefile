@@ -11,8 +11,8 @@ else ifeq ($(UNAME), Linux)
   DIST_ROOT := $(SRC)/obj-x86_64-apple-darwin21.1.0
   DIST := ${SRC}/obj-x86_64-pc-linux-gnu/dist/firefox*.bz2
 else
-  DIST_ROOT := $(SRC)/obj-x86_64-windows
-  DIST := "Windows"
+  DIST_ROOT := $(SRC)/obj-x86_64-pc-mingw32
+  DIST := $(DIST_ROOT)/bin
 endif
 
 package: check

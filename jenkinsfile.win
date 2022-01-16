@@ -1,0 +1,56 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent none
+
+    options {
+        ansiColor('xterm')
+    }
+
+    stages {
+        stage('clean') {
+            parallel {
+                stage('clean @ windows') {
+                    agent { label 'windows' }
+                    steps {
+                        sh '''
+                            C:/mozilla-build/start-shell.bat
+                            ./mach clobber
+                        '''
+                    }
+                }
+            }
+        }
+        stage('build') {
+            parallel {
+                stage('build @ windows') {
+                    agent { label 'windows' }
+                    steps {
+                        sh '''
+                            C:/mozilla-build/start-shell.bat
+                            ./mach build
+                        '''
+                    }
+                }
+            }
+        }
+        stage('package') {
+            parallel {
+                stage('package @ windows') {
+                    agent { label 'windows' }
+                    steps {
+                        sh '''
+                            C:/mozilla-build/start-shell.bat
+                            ./mach package
+                        '''
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts: 'obj-x86_64-pc-mingw32/dist/firefox*.zip', fingerprint: true
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
