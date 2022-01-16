@@ -22,6 +22,14 @@ pipeline {
                         sh '''make clean'''
                     }
                 }
+                stage('clean @ windows') {
+                    agent { label 'windows' }
+                    steps {
+                        bat """
+                        c:\\mozilla-build\\start-shell.bat /c/jenkins/workspace/firefox-win/win/clean.sh
+                        """
+                    }
+                }
             }
         }
         stage('build') {
@@ -36,6 +44,14 @@ pipeline {
                     agent { label 'macOS' }
                     steps {
                         sh '''make build'''
+                    }
+                }
+                stage('build @ windows') {
+                    agent { label 'windows' }
+                    steps {
+                        bat """
+                        c:\\mozilla-build\\start-shell.bat /c/jenkins/workspace/firefox-win/win/build.sh
+                        """
                     }
                 }
             }
@@ -61,6 +77,20 @@ pipeline {
                     post {
                         always {
                             archiveArtifacts artifacts: 'dist/*.dmg', fingerprint: true
+                        }
+                    }
+                }
+                stage('package @ windows') {
+                    agent { label 'windows' }
+                    steps {
+                        bat """
+                        c:\\mozilla-build\\start-shell.bat /c/jenkins/workspace/firefox-win/win/package.sh
+                        """
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts: 'dist/firefox*.zip', fingerprint: true
                         }
                     }
                 }
